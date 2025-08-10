@@ -19,11 +19,11 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isipm"]
-size = Vector2(128, 128)
+size = Vector2(80, 124)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5s0y"]
-radius = 78.0
-height = 260.0
+radius = 63.0
+height = 212.0
 
 [node name="usb" type="CharacterBody2D"]
 wall_min_slide_angle = 0.0174533
@@ -35,6 +35,7 @@ autoplay = "default"
 
 [node name="usbCollision" type="CollisionShape2D" parent="."]
 modulate = Color(1, 0, 0, 1)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_isipm")
 
 [node name="usbHitbox" type="Area2D" parent="."]

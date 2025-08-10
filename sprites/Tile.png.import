@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy3w6302uujqb"
-path="res://.godot/imported/Water Splash.png-8b5ef5c979c20cec388827cd02f5e33c.ctex"
+uid="uid://bv3iqe06vox15"
+path="res://.godot/imported/Tile.png-55619b3d08603de4c33b6bb0a26f882d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Water Splash.png"
-dest_files=["res://.godot/imported/Water Splash.png-8b5ef5c979c20cec388827cd02f5e33c.ctex"]
+source_file="res://sprites/Tile.png"
+dest_files=["res://.godot/imported/Tile.png-55619b3d08603de4c33b6bb0a26f882d.ctex"]
 
 [params]
 

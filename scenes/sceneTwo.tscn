@@ -1,37 +1,66 @@
-[gd_scene load_steps=7 format=4 uid="uid://ccpw1xku44wry"]
+[gd_scene load_steps=4 format=4 uid="uid://ccpw1xku44wry"]
 
 [ext_resource type="PackedScene" uid="uid://0fdg0ygsn8oo" path="res://scenes/player.tscn" id="1_yjbvy"]
-[ext_resource type="Texture2D" uid="uid://bsgy5gry2lk7" path="res://sprites/icon.svg" id="2_ccgdu"]
-[ext_resource type="PackedScene" uid="uid://cfrwri5cmlo6y" path="res://scenes/water.tscn" id="3_w2h5r"]
+[ext_resource type="PackedScene" uid="uid://bk5wie14cmrdy" path="res://scenes/tileMap.tscn" id="2_y6gdl"]
 [ext_resource type="PackedScene" uid="uid://pvsgngp0qcr6" path="res://scenes/portal.tscn" id="4_i3mor"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fak8p"]
-texture = ExtResource("2_ccgdu")
-texture_region_size = Vector2i(128, 128)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
-
-[sub_resource type="TileSet" id="TileSet_r2n20"]
-tile_size = Vector2i(128, 128)
-physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetAtlasSource_fak8p")
 
 [node name="sceneTwo" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_yjbvy")]
 
-[node name="tileMap" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD//wEAAQAAAAAAAAAAAAEAAQAAAAAAAAD+/wEAAQAAAAAAAAD+/wAAAQAAAAAAAAD+////AQAAAAAAAAD+//7/AQAAAAAAAAABAAEAAQAAAAAAAAACAAEAAQAAAAAAAAADAAEAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAFAAEAAQAAAAAAAAAGAAEAAQAAAAAAAAAHAAIAAQAAAAAAAAAGAAIAAQAAAAAAAAAIAAMAAQAAAAAAAAAHAAMAAQAAAAAAAAAJAAMAAQAAAAAAAAAKAAMAAQAAAAAAAAAKAAIAAQAAAAAAAAAKAAEAAQAAAAAAAAALAAEAAQAAAAAAAAAMAAEAAQAAAAAAAAANAAEAAQAAAAAAAAANAAAAAQAAAAAAAAAOAAAAAQAAAAAAAAAOAP//AQAAAAAAAAAPAP//AQAAAAAAAAAPAP7/AQAAAAAAAAAPAAAAAQAAAAAAAAAPAAEAAQAAAAAAAAAOAAEAAQAAAAAAAAATAP7/AQAAAAAAAAATAP//AQAAAAAAAAATAAAAAQAAAAAAAAAZAAIAAQAAAAAAAAAaAAIAAQAAAAAAAAAbAAIAAQAAAAAAAAAcAAEAAQAAAAAAAAAdAAEAAQAAAAAAAAAeAAEAAQAAAAAAAAAfAAEAAQAAAAAAAAAlAAEAAQAAAAAAAAAmAAEAAQAAAAAAAAAnAAEAAQAAAAAAAAAoAAEAAQAAAAAAAAApAAEAAQAAAAAAAAApAAAAAQAAAAAAAAApAP//AQAAAAAAAAATAAEAAQAAAAAAAAAUAAEAAQAAAAAAAAAVAAEAAQAAAAAAAAAYAAEAAQAAAAAAAAAXAAEAAQAAAAAAAAAWAAEAAQAAAAAAAAAZAAEAAQAAAAAAAAAcAAIAAQAAAAAAAAAfAAAAAQAAAAAAAAAqAP7/AQAAAAAAAAAqAP//AQAAAAAAAAArAP7/AQAAAAAAAAAsAP7/AQAAAAAAAAAtAP7/AQAAAAAAAAAtAP3/AQAAAAAAAAD+//3/AQAAAAAAAAAtAPz/AQAAAAAAAAAsAPz/AQAAAAAAAAArAPz/AQAAAAAAAAArAPv/AQAAAAAAAAAqAPv/AQAAAAAAAAAqAPr/AQAAAAAAAAA=")
-tile_set = SubResource("TileSet_r2n20")
-
-[node name="water" parent="." instance=ExtResource("3_w2h5r")]
-position = Vector2(3395, 195)
-
-[node name="water2" parent="." instance=ExtResource("3_w2h5r")]
-position = Vector2(3523, 193)
+[node name="tileMap" parent="." instance=ExtResource("2_y6gdl")]
+position = Vector2(0, 0)
+tile_map_data = PackedByteArray("AAATAAAAAQAAAAAAAAATAP//AQAAAAAAAAATAAEAAQAAAAAAAAAPAAEAAQAAAAAAAAAOAAEAAQAAAAAAAAANAAEAAQAAAAAAAAAMAAEAAQAAAAAAAAALAAEAAQAAAAAAAAAKAAEAAQAAAAAAAAAGAAEAAQAAAAAAAAAFAAEAAQAAAAAAAAAEAAEAAQAAAAAAAAADAAEAAQAAAAAAAAADAAAAAQAAAAAAAAD+//7/AQAAAAAAAAD+/wEAAQAAAAAAAAD+/wAAAQAAAAAAAAD+////AQAAAAAAAAD//wEAAQAAAAAAAAAAAAEAAQAAAAAAAAABAAEAAQAAAAAAAAACAAEAAQAAAAAAAAACAAAAAQAAAAAAAAAUAAEAAQAAAAAAAAAVAAEAAQAAAAAAAAAWAAEAAQAAAAAAAAAXAAEAAQAAAAAAAAAYAAEAAQAAAAAAAAAZAAEAAQAAAAAAAAAaAAEAAwAAAAAAAAD+//3/AQAAAAAAAAAGAAIAAQAAAAAAAAAHAAIAAQAAAAAAAAAHAAMAAQAAAAAAAAAIAAMAAQAAAAAAAAAJAAMAAQAAAAAAAAAKAAMAAQAAAAAAAAAKAAIAAQAAAAAAAAAOAAAAAQAAAAAAAAANAAAAAQAAAAAAAAAOAP//AQAAAAAAAAAPAAAAAQAAAAAAAAAPAP//AQAAAAAAAAAPAP7/AQAAAAAAAAATAP7/AQAAAAAAAAAZAAIAAQAAAAAAAAAaAAIAAQAAAAAAAAAbAAIAAQAAAAAAAAAcAAIAAQAAAAAAAAAcAAEAAQAAAAAAAAAdAAEAAQAAAAAAAAAeAAEAAQAAAAAAAAAfAAEAAQAAAAAAAAAfAAAAAQAAAAAAAAAlAAEAAQAAAAAAAAAmAAEAAQAAAAAAAAAnAAEAAQAAAAAAAAAoAAEAAQAAAAAAAAApAAAAAQAAAAAAAAApAAEAAQAAAAAAAAApAP//AQAAAAAAAAAqAP7/AQAAAAAAAAAqAP//AQAAAAAAAAArAP7/AQAAAAAAAAAsAP7/AQAAAAAAAAAtAP7/AQAAAAAAAAAtAP3/AQAAAAAAAAAtAPz/AQAAAAAAAAAsAPz/AQAAAAAAAAArAPz/AQAAAAAAAAArAPv/AQAAAAAAAAAqAPv/AQAAAAAAAAAqAPr/AQAAAAAAAAAbAAEAAwAAAAAAAAA=")
 
 [node name="portal" parent="." instance=ExtResource("4_i3mor")]
-position = Vector2(5708, -313)
+position = Vector2(5696, -321)
 
-[connection signal="body_entered" from="water" to="water" method="_on_body_entered"]
-[connection signal="body_entered" from="water2" to="water2" method="_on_body_entered"]
+[node name="Left_Right" type="RichTextLabel" parent="."]
+offset_left = -115.0
+offset_top = -169.0
+offset_right = 88.0
+offset_bottom = -114.0
+text = "A or left arrow for left. 
+D or right arrow for right."
+
+[node name="Jump" type="RichTextLabel" parent="."]
+offset_left = 163.0
+offset_top = -89.0
+offset_right = 412.0
+offset_bottom = -66.0
+text = "W, left arrow or space to jump."
+
+[node name="DoubleJump" type="RichTextLabel" parent="."]
+offset_left = 4203.0
+offset_top = -184.0
+offset_right = 4561.0
+offset_bottom = -161.0
+text = "Press jump in air to preform a double jump."
+
+[node name="Try" type="RichTextLabel" parent="."]
+offset_left = 976.0
+offset_top = -12.0
+offset_right = 1094.0
+offset_bottom = 18.0
+text = "Try this jump"
+
+[node name="Void" type="RichTextLabel" parent="."]
+offset_left = 2046.0
+offset_top = -404.0
+offset_right = 2320.0
+offset_bottom = -380.0
+text = "The void puts you back at the start."
+
+[node name="Water" type="RichTextLabel" parent="."]
+offset_left = 3316.0
+offset_top = -40.0
+offset_right = 3514.0
+offset_bottom = -16.0
+text = "Water fries your circuts."
+
+[node name="Crouch" type="RichTextLabel" parent="."]
+offset_left = 5244.0
+offset_top = -400.0
+offset_right = 5516.0
+offset_bottom = -372.0
+text = "S, down arrow or shift to crouch."

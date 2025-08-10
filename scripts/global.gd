@@ -11,6 +11,8 @@ var phaseEndPosition = Vector2(0,0)
 var phaseStartPosition = Vector2(0,0)
 var jumps = 0
 var boostCharges = 50
+var playerAnimation = "default"
+var moving = false
 
 func _process(_delta):
 	pass
@@ -36,18 +38,26 @@ func changeScene(scene):
 func death(deathCause, deadObject, canRespawn, waitTime):
 	if not isDead and not inPhase:
 		isDead = true
-		deadObject.visible = false
+		playerAnimation = "death"
+		Global.moving = true
 		print("Died to ", deathCause, " at ", deadObject.global_position)
+		
 		if canRespawn:
+			for i in range(2, 0, -1):
+				await get_tree().create_timer(1).timeout
+			deadObject.visible = false
+			playerAnimation = "default"
+			
 			print("Respawning...")
-			for i in range(waitTime, 0, -1):
+			for i in range(waitTime * 2 - 2, 0, -1):
 				await get_tree().create_timer(1).timeout
 				print(i)
 			deadObject.global_position = spawnPoint
+			deadObject.visible = true
+			
 			await get_tree().create_timer(1).timeout
 			print("Alive")
 			isDead = false
-			deadObject.visible = true
 		else:
 			queue_free()
 			print(deadObject, " removed.")
