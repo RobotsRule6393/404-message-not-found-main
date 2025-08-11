@@ -16,7 +16,7 @@ func _physics_process(_delta):
 	if direction == 0 or is_on_wall():
 		direction = randi_range(-1,1)
 	
-	if velocity.x:
-		$portalSprite.flip_h = velocity.x < 0
+	#if velocity.x:
+		#$portalSprite.flip_h = velocity.x < 0
 	
 	move_and_slide()

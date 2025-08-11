@@ -4,8 +4,9 @@ func _physics_process(delta):
 	if not is_on_floor() and not Global.inPhase or (Input.is_action_pressed("crouch") and Global.inPhase):
 		velocity += get_gravity() * delta
 		
-		Global.playerAnimation = "falling"
-		Global.moving = true
+		if  velocity.y > 5:
+			Global.playerAnimation = "falling"
+			Global.moving = true
 	
 	if not Global.isDead:
 		if Input.is_action_just_pressed("jump") and Global.jumps <= 1:
@@ -13,7 +14,9 @@ func _physics_process(delta):
 			velocity.y = Global.jumpVelocity
 			
 			Global.playerAnimation = "jumping"
+			print(Global.playerAnimation)
 			Global.moving = true
+			
 		
 		if Input.is_action_pressed("jump") and Global.inPhase:
 			velocity.y = Global.jumpVelocity
@@ -38,13 +41,12 @@ func _physics_process(delta):
 			velocity.x = direction * Global.speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, Global.speed)
-			Global.playerAnimation = "walk"
 		
 		if direction > 0 and is_on_floor():
-			Global.playerAnimation = "walkRight"
+			Global.playerAnimation = "walking"
 			Global.moving = true
 		elif direction < 0 and is_on_floor():
-			Global.playerAnimation = "walkLeft"
+			Global.playerAnimation = "walking"
 			Global.moving = true
 		
 	else:
@@ -54,7 +56,7 @@ func _physics_process(delta):
 
 
 func _process(_delta):
-	$playerSprite.play("default")#change once you have all animations
+	$playerSprite.play(Global.playerAnimation)#change once you have all animations
 	
 	if position.y > 500: #Death to void
 		Global.death("void", self, true, 4)
@@ -66,8 +68,9 @@ func _process(_delta):
 		Global.jumps = 0
 		
 	if not Global.moving:
+		#print(Global.playerAnimation)
 		Global.playerAnimation = "default"
-		print(Global.playerAnimation)
+
 	else:
 		Global.moving = false
 
