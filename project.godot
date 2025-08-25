@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="404-Message-Not-Found >_<"
-run/main_scene="res://scenes/sceneTwo.tscn"
+run/main_scene="res://scenes/sceneOne.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0, 0.196078, 0, 1)
 config/icon="res://sprites/icon.svg"

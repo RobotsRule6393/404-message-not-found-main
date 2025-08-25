@@ -38,7 +38,6 @@ func changeScene(scene):
 func death(deathCause, deadObject, canRespawn, waitTime):
 	if not isDead and not inPhase:
 		isDead = true
-		playerAnimation = "death"
 		Global.moving = true
 		print("Died to ", deathCause, " at ", deadObject.global_position)
 		
@@ -46,7 +45,6 @@ func death(deathCause, deadObject, canRespawn, waitTime):
 			for i in range(2, 0, -1):
 				await get_tree().create_timer(1).timeout
 			deadObject.visible = false
-			playerAnimation = "default"
 			
 			print("Respawning...")
 			for i in range(waitTime * 2 - 2, 0, -1):

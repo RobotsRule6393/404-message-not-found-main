@@ -60,6 +60,10 @@ func _process(_delta):
 	
 	if position.y > 500: #Death to void
 		Global.death("void", self, true, 4)
+		Global.playerAnimation = "death"
+		Global.moving = true
+	
+		print(Global.playerAnimation)
 	
 	if Input.is_action_just_pressed("hacks") or (Input.is_action_just_pressed("alt") and Input.is_action_pressed("f4")): #Phasing hacks
 		Global.phase(global_position, $playerCollision, $playerCrouchCollision)
@@ -68,7 +72,6 @@ func _process(_delta):
 		Global.jumps = 0
 		
 	if not Global.moving:
-		#print(Global.playerAnimation)
 		Global.playerAnimation = "default"
 
 	else:

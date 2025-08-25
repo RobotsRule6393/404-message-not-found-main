@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=3 uid="uid://0fdg0ygsn8oo"]
+[gd_scene load_steps=130 format=3 uid="uid://0fdg0ygsn8oo"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_73wax"]
 [ext_resource type="Texture2D" uid="uid://855wocxdokwo" path="res://sprites/Crouch.png" id="2_s2npn"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c6anmm018d3l2" path="res://sprites/ComputerFalling.png" id="6_4ej5p"]
 [ext_resource type="Texture2D" uid="uid://c1wgueu3t3d87" path="res://sprites/ComputerJumping.png" id="7_specq"]
 [ext_resource type="Texture2D" uid="uid://dk74kknnn8h3s" path="res://sprites/ComputerWalking.png" id="8_osb5x"]
+[ext_resource type="AudioStream" uid="uid://b8uj2fk2yvymg" path="res://sprites/2020-03-22_-_8_Bit_Surf_-_FesliyanStudios.com_-_David_Renda.mp3" id="10_mcvdg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ipwg"]
 size = Vector2(18.2857, 18.2857)
@@ -512,7 +513,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vor2m")
 }],
-"loop": true,
+"loop": false,
 "name": &"crouching",
 "speed": 24.0
 }, {
@@ -896,6 +897,7 @@ shape = SubResource("RectangleShape2D_3ipwg")
 [node name="playerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(3.8147e-06, -3.8147e-06)
 sprite_frames = SubResource("SpriteFrames_63i2n")
+animation = &"crouching"
 autoplay = "default"
 
 [node name="playerCamera" type="Camera2D" parent="."]
@@ -904,5 +906,9 @@ position_smoothing_enabled = true
 
 [node name="background" parent="." instance=ExtResource("3_0ym4r")]
 visible = false
+
+[node name="backgroundMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_mcvdg")
+autoplay = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
