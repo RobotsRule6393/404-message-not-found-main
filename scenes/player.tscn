@@ -890,8 +890,8 @@ scale = Vector2(6.5, 5)
 shape = SubResource("RectangleShape2D_pyglb")
 
 [node name="playerCrouchCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -30)
-scale = Vector2(3, 2.4)
+position = Vector2(0, 3)
+scale = Vector2(4.8, 6)
 shape = SubResource("RectangleShape2D_3ipwg")
 
 [node name="playerSprite" type="AnimatedSprite2D" parent="."]

@@ -1,21 +1,21 @@
 extends CharacterBody2D
 
 func _physics_process(delta):
-	if not is_on_floor() and not Global.inPhase or (Input.is_action_pressed("crouch") and Global.inPhase):
-		velocity += get_gravity() * delta
+	if not Global.isDead:
+		if not is_on_floor() and not Global.inPhase or (Input.is_action_pressed("crouch") and Global.inPhase):
+			velocity += get_gravity() * delta
 		
-		if  velocity.y > 5:
+		if  velocity.y > 20:
 			Global.playerAnimation = "falling"
 			Global.moving = true
+			
+		if velocity.y < 0:
+			Global.playerAnimation = "jumping"
+			Global.moving = true
 	
-	if not Global.isDead:
 		if Input.is_action_just_pressed("jump") and Global.jumps <= 1:
 			Global.jumps = Global.jumps + 1
 			velocity.y = Global.jumpVelocity
-			
-			Global.playerAnimation = "jumping"
-			print(Global.playerAnimation)
-			Global.moving = true
 			
 		
 		if Input.is_action_pressed("jump") and Global.inPhase:
@@ -59,11 +59,7 @@ func _process(_delta):
 	$playerSprite.play(Global.playerAnimation)#change once you have all animations
 	
 	if position.y > 500: #Death to void
-		Global.death("void", self, true, 4)
-		Global.playerAnimation = "death"
-		Global.moving = true
-	
-		print(Global.playerAnimation)
+		Global.death("void", self, true, 4, true)
 	
 	if Input.is_action_just_pressed("hacks") or (Input.is_action_just_pressed("alt") and Input.is_action_pressed("f4")): #Phasing hacks
 		Global.phase(global_position, $playerCollision, $playerCrouchCollision)
@@ -71,12 +67,13 @@ func _process(_delta):
 	if is_on_floor(): #Resets jumps if on floor
 		Global.jumps = 0
 		
-	if not Global.moving:
+	if not Global.moving and not Global.isDead:
 		Global.playerAnimation = "default"
 
 	else:
 		Global.moving = false
+	print(Global.playerAnimation)
 
 func _on_area_2d_body_entered(body: Node2D):
 	if body.name == "tileMap":
-		Global.death("water", self, true, 3)
+		Global.death("water", self, true, 3, true)

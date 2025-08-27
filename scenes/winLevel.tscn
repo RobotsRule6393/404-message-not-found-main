@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://dfd32pxn66b2m"]
 
-[ext_resource type="Script" path="res://scripts/playAgain.gd" id="3_6n202"]
+[ext_resource type="Script" path="res://scripts/playAgain.gd" id="1_18ydo"]
 
-[node name="sceneWin" type="Node2D"]
+[node name="winLevel" type="Node2D"]
 
 [node name="youWin" type="RichTextLabel" parent="."]
 offset_left = -156.0
@@ -17,7 +17,7 @@ offset_top = -66.0
 offset_right = 248.0
 offset_bottom = 59.0
 text = "Play Again?"
-script = ExtResource("3_6n202")
+script = ExtResource("1_18ydo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

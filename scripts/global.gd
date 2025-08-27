@@ -14,8 +14,12 @@ var boostCharges = 50
 var playerAnimation = "default"
 var moving = false
 
-func _process(_delta):
-	pass
+var num_players = 8
+var bus = "master"
+
+var available = []  # The available players.
+var queue = []  # The queue of sounds to play.
+
 
 func addAction(input):
 	actions.append(input)
@@ -26,19 +30,19 @@ func addAction(input):
 func changeScene(scene):
 	match scene:
 		1:
-			get_tree().change_scene_to_packed(preload("res://scenes/sceneOne.tscn"))
+			get_tree().change_scene_to_packed(preload("res://scenes/levelOne.tscn"))
 			currentScene = 1
 		2:
-			get_tree().change_scene_to_packed(preload("res://scenes/sceneTwo.tscn"))
+			get_tree().change_scene_to_packed(preload("res://scenes/winLevel.tscn"))
 			currentScene = 2
-		3:
-			get_tree().change_scene_to_packed(preload("res://scenes/sceneWin.tscn"))
-			currentScene = 3
 
-func death(deathCause, deadObject, canRespawn, waitTime):
+func death(deathCause, deadObject, canRespawn, waitTime, isPlayer):
+	if isPlayer == true:
+		playerAnimation = "death"
+		Global.moving = true
+	
 	if not isDead and not inPhase:
 		isDead = true
-		Global.moving = true
 		print("Died to ", deathCause, " at ", deadObject.global_position)
 		
 		if canRespawn:
@@ -52,6 +56,9 @@ func death(deathCause, deadObject, canRespawn, waitTime):
 				print(i)
 			deadObject.global_position = spawnPoint
 			deadObject.visible = true
+			
+			if isPlayer == true:
+				playerAnimation = "default"
 			
 			await get_tree().create_timer(1).timeout
 			print("Alive")
@@ -81,3 +88,26 @@ func phase(global_position, playerCollision, playerCrouchCollision):
 			Global.speed = Global.speed / 5
 			Global.jumpVelocity = Global.jumpVelocity / 2
 			print("Disabled phasing")
+
+func _ready():
+	# Create the pool of AudioStreamPlayer nodes.
+	for i in num_players:
+		var player = AudioStreamPlayer.new()
+		add_child(player)
+		available.append(player)
+		player.finished.connect(_on_stream_finished.bind(player))
+		player.bus = bus
+
+func _on_stream_finished(stream):
+	# When finished playing a stream, make the player available again.
+	available.append(stream)
+
+func play(sound_path):
+	queue.append(sound_path)
+
+func _process(delta):
+	# Play a queued sound if any players are available.
+	if not queue.is_empty() and not available.is_empty():
+		available[0].stream = load(queue.pop_front())
+		available[0].play()
+		available.pop_front()

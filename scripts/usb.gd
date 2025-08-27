@@ -5,7 +5,7 @@ var direction = 1
 func _on_usb_hitbox_body_entered(body: Node2D):
 	#run usb ataching and stealing files 
 	if body.name == "player":
-		Global.death("usb", body, true, 2)
+		Global.death("usb", body, true, 2, true)
 
 func _physics_process(_delta):
 	if not is_on_floor():
