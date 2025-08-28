@@ -72,7 +72,7 @@ func _process(_delta):
 
 	else:
 		Global.moving = false
-	print(Global.playerAnimation)
+	#print(Global.playerAnimation)
 
 func _on_area_2d_body_entered(body: Node2D):
 	if body.name == "tileMap":
