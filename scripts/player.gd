@@ -8,7 +8,10 @@ func _physics_process(delta):
 		if  velocity.y > 20:
 			Global.playerAnimation = "falling"
 			Global.moving = true
-			
+			Global.falling = true
+		else:
+			Global.falling = false
+		
 		if velocity.y < 0:
 			Global.playerAnimation = "jumping"
 			Global.moving = true
@@ -16,7 +19,6 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump") and Global.jumps <= 1:
 			Global.jumps = Global.jumps + 1
 			velocity.y = Global.jumpVelocity
-			
 		
 		if Input.is_action_pressed("jump") and Global.inPhase:
 			velocity.y = Global.jumpVelocity
@@ -64,16 +66,32 @@ func _process(_delta):
 	if Input.is_action_just_pressed("hacks") or (Input.is_action_just_pressed("alt") and Input.is_action_pressed("f4")): #Phasing hacks
 		Global.phase(global_position, $playerCollision, $playerCrouchCollision)
 	
+	if Input.is_action_just_pressed("ui_down"):
+		Global.changeScene(Global.currentScene + 1)
+	
 	if is_on_floor(): #Resets jumps if on floor
 		Global.jumps = 0
-		
+	
 	if not Global.moving and not Global.isDead:
 		Global.playerAnimation = "default"
-
+	
 	else:
 		Global.moving = false
-	#print(Global.playerAnimation)
+	
+	if is_on_floor() and Global.hitFloor and Global.falling:
+		Global.hitFloor = false
+		$playerParticlesBack.restart()
 
-func _on_area_2d_body_entered(body: Node2D):
+
+func _on_player_water_area_body_entered(body: Node2D):
 	if body.name == "tileMap":
 		Global.death("water", self, true, 3, true)
+
+
+func _on_player_portal_area_body_entered(body: Node2D):
+	if body.name == "tileMap":
+		Global.changeScene(Global.currentScene + 1)
+
+
+func _on_player_particles_back_finished():
+	Global.hitFloor = true

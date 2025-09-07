@@ -3,6 +3,13 @@
 [ext_resource type="Script" path="res://scripts/usb.gd" id="1_6oa7p"]
 [ext_resource type="Texture2D" uid="uid://cej7kklltusks" path="res://sprites/USB.png" id="2_femx2"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_isipm"]
+size = Vector2(80, 124)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5s0y"]
+radius = 63.0
+height = 212.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_jbksa"]
 atlas = ExtResource("2_femx2")
 region = Rect2(0, 0, 128, 128)
@@ -18,20 +25,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_isipm"]
-size = Vector2(80, 124)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5s0y"]
-radius = 63.0
-height = 212.0
-
 [node name="usb" type="CharacterBody2D"]
 wall_min_slide_angle = 0.0174533
 script = ExtResource("1_6oa7p")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_y58j5")
-autoplay = "default"
 
 [node name="usbCollision" type="CollisionShape2D" parent="."]
 modulate = Color(1, 0, 0, 1)
@@ -45,5 +41,9 @@ modulate = Color(1, 0, 0, 1)
 position = Vector2(1, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_o5s0y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y58j5")
+autoplay = "default"
 
 [connection signal="body_entered" from="usbHitbox" to="." method="_on_usb_hitbox_body_entered"]

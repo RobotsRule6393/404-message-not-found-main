@@ -3,7 +3,7 @@ extends Node
 var speed = 350.0
 var jumpVelocity = -550.0
 var actions = [null,null,null,null,null]
-var currentScene = 1
+var currentScene = 0
 var spawnPoint = Vector2(0, 0)
 var isDead = false
 var inPhase = false
@@ -13,6 +13,8 @@ var jumps = 0
 var boostCharges = 50
 var playerAnimation = "default"
 var moving = false
+var hitFloor = true
+var falling = false
 
 var num_players = 8
 var bus = "master"
@@ -28,13 +30,17 @@ func addAction(input):
 	#print(actions)
 
 func changeScene(scene):
-	match scene:
-		1:
-			get_tree().change_scene_to_packed(preload("res://scenes/levelOne.tscn"))
-			currentScene = 1
-		2:
-			get_tree().change_scene_to_packed(preload("res://scenes/winLevel.tscn"))
-			currentScene = 2
+	if not inPhase:
+		match scene:
+			1:
+				get_tree().change_scene_to_packed(preload("res://scenes/levelOne.tscn"))
+				currentScene = 1
+			2:
+				get_tree().change_scene_to_packed(preload("res://scenes/levelTwo.tscn"))
+				currentScene = 2
+			3:
+				get_tree().change_scene_to_packed(preload("res://scenes/winLevel.tscn"))
+				currentScene = 2
 
 func death(deathCause, deadObject, canRespawn, waitTime, isPlayer):
 	if isPlayer == true:

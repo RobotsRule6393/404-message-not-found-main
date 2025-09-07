@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=4 uid="uid://cybnodu073mbh"]
+
+[ext_resource type="PackedScene" uid="uid://dr6nlkqrgsak7" path="res://scenes/usb.tscn" id="1_aror5"]
+[ext_resource type="PackedScene" uid="uid://0fdg0ygsn8oo" path="res://scenes/player.tscn" id="2_hxa87"]
+[ext_resource type="PackedScene" uid="uid://bk5wie14cmrdy" path="res://scenes/tileMap.tscn" id="3_fvf6y"]
+
+[node name="levelTwo" type="Node2D"]
+
+[node name="tileMap" parent="." instance=ExtResource("3_fvf6y")]
+tile_map_data = PackedByteArray("AAD9/wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAEAAAAAAAAAAAAMAAEAAAAAAAAAAAD9/wAAAAAAAAAAAAD9////AAAAAAAAAAD9//7/AAAAAAAAAAADAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAARAP//AgAAAAAAAAA=")
+
+[node name="Hitbox" type="RichTextLabel" parent="."]
+offset_left = 122.0
+offset_top = -136.0
+offset_right = 426.0
+offset_bottom = -61.0
+text = "Watch out!
+USB's have a unique hitbox that if you touch will cause you to reset."
+
+[node name="Left_Right" type="RichTextLabel" parent="."]
+offset_left = 594.0
+offset_top = -251.0
+offset_right = 1082.0
+offset_bottom = -178.0
+text = "Tip:
+You can't get rid of them so you'll have to jump over them. Use your double jump to make it easier on yourself."
+
+[node name="usb" parent="." instance=ExtResource("1_aror5")]
+position = Vector2(1172, 48)
+
+[node name="player" parent="." instance=ExtResource("2_hxa87")]

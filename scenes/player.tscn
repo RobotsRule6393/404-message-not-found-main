@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_73wax"]
 [ext_resource type="Texture2D" uid="uid://855wocxdokwo" path="res://sprites/Crouch.png" id="2_s2npn"]
-[ext_resource type="PackedScene" uid="uid://culchx88etmwr" path="res://scenes/background.tscn" id="3_0ym4r"]
 [ext_resource type="Texture2D" uid="uid://b7546laqe6506" path="res://sprites/Death.png" id="3_1y4qc"]
 [ext_resource type="Texture2D" uid="uid://i8xdrtoxfyp0" path="res://sprites/Idle.png" id="3_71c67"]
 [ext_resource type="Texture2D" uid="uid://blirx6hu8v8o0" path="res://sprites/Robot.png" id="4_dukts"]
@@ -10,12 +9,22 @@
 [ext_resource type="Texture2D" uid="uid://c1wgueu3t3d87" path="res://sprites/ComputerJumping.png" id="7_specq"]
 [ext_resource type="Texture2D" uid="uid://dk74kknnn8h3s" path="res://sprites/ComputerWalking.png" id="8_osb5x"]
 [ext_resource type="AudioStream" uid="uid://b8uj2fk2yvymg" path="res://sprites/2020-03-22_-_8_Bit_Surf_-_FesliyanStudios.com_-_David_Renda.mp3" id="10_mcvdg"]
+[ext_resource type="Texture2D" uid="uid://cx4s18bi8x8xm" path="res://sprites/cursor.png" id="10_ru1oc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ipwg"]
 size = Vector2(18.2857, 18.2857)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pyglb"]
 size = Vector2(16, 23.2)
+
+[sub_resource type="Curve" id="Curve_woeub"]
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, -573.973, 0, 0, Vector2(1, 100), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_vpij3"]
+offsets = PackedFloat32Array(0, 0.979167)
+colors = PackedColorArray(1, 1, 1, 1, 0.903598, 0.903598, 0.903598, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5d0mk"]
 atlas = ExtResource("2_s2npn")
@@ -437,14 +446,6 @@ region = Rect2(0, 128, 128, 128)
 atlas = ExtResource("7_specq")
 region = Rect2(128, 128, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_enx8m"]
-atlas = ExtResource("7_specq")
-region = Rect2(0, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_clius"]
-atlas = ExtResource("7_specq")
-region = Rect2(128, 256, 128, 128)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_38x2t"]
 atlas = ExtResource("8_osb5x")
 region = Rect2(0, 0, 128, 128)
@@ -795,12 +796,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gtx2j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_enx8m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_clius")
 }],
 "loop": true,
 "name": &"jumping",
@@ -821,40 +816,68 @@ animations = [{
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_73wax")
 
+[node name="backgroundMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_mcvdg")
+autoplay = true
+parameters/looping = true
+
 [node name="playerCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-3.33786e-06, -5.72205e-05)
 scale = Vector2(7, 7)
 shape = SubResource("RectangleShape2D_3ipwg")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-
-[node name="playerDeathCollision" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(2.38419e-06, 6)
-scale = Vector2(6.5, 5)
-shape = SubResource("RectangleShape2D_pyglb")
 
 [node name="playerCrouchCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 scale = Vector2(5.3, 6.1)
 shape = SubResource("RectangleShape2D_3ipwg")
 
+[node name="playerWaterArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="playerWaterCollision" type="CollisionShape2D" parent="playerWaterArea"]
+position = Vector2(2.38419e-06, 6)
+scale = Vector2(6.5, 5)
+shape = SubResource("RectangleShape2D_pyglb")
+
+[node name="playerPortalArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="playerPortalCollision" type="CollisionShape2D" parent="playerPortalArea"]
+position = Vector2(2.38419e-06, 6)
+scale = Vector2(6.5, 5)
+shape = SubResource("RectangleShape2D_pyglb")
+
+[node name="playerParticlesBack" type="CPUParticles2D" parent="."]
+position = Vector2(0, 64)
+emitting = false
+amount = 10
+lifetime = 0.5
+one_shot = true
+texture = ExtResource("10_ru1oc")
+emission_shape = 3
+emission_rect_extents = Vector2(50, 1)
+particle_flag_align_y = true
+damping_min = 20.0
+damping_max = 20.0
+damping_curve = SubResource("Curve_woeub")
+scale_amount_min = 0.0
+color = Color(0.60933, 0.60933, 0.60933, 1)
+color_ramp = SubResource("Gradient_vpij3")
+hue_variation_min = 0.25
+hue_variation_max = 0.25
+
 [node name="playerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(3.8147e-06, -3.8147e-06)
 sprite_frames = SubResource("SpriteFrames_63i2n")
+animation = &"crouching"
 autoplay = "default"
 
 [node name="playerCamera" type="Camera2D" parent="."]
 process_callback = 0
 position_smoothing_enabled = true
 
-[node name="background" parent="." instance=ExtResource("3_0ym4r")]
-visible = false
-
-[node name="backgroundMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("10_mcvdg")
-autoplay = true
-parameters/looping = true
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="playerWaterArea" to="." method="_on_player_water_area_body_entered"]
+[connection signal="body_entered" from="playerPortalArea" to="." method="_on_player_portal_area_body_entered"]
+[connection signal="finished" from="playerParticlesBack" to="." method="_on_player_particles_back_finished"]
