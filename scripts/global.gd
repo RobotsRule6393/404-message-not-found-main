@@ -29,6 +29,7 @@ func addAction(input):
 	#print("Added: ", Input)
 	#print(actions)
 
+
 func changeScene(scene):
 	if not inPhase:
 		match scene:
@@ -42,10 +43,12 @@ func changeScene(scene):
 				get_tree().change_scene_to_packed(preload("res://scenes/winLevel.tscn"))
 				currentScene = 2
 
+
 func death(deathCause, deadObject, canRespawn, waitTime, isPlayer):
 	if isPlayer == true:
 		playerAnimation = "death"
-		Global.moving = true
+		moving = true
+		play("res://sprites/reliable-safe-327618.mp3")
 	
 	if not isDead and not inPhase:
 		isDead = true
@@ -73,6 +76,7 @@ func death(deathCause, deadObject, canRespawn, waitTime, isPlayer):
 			queue_free()
 			print(deadObject, " removed.")
 
+
 func phase(global_position, playerCollision, playerCrouchCollision):
 	if not Global.isDead:
 		if not Global.inPhase: #Toggles phase on
@@ -95,6 +99,19 @@ func phase(global_position, playerCollision, playerCrouchCollision):
 			Global.jumpVelocity = Global.jumpVelocity / 2
 			print("Disabled phasing")
 
+
+func effect(Sound, shakeObject, shakeAmount, chosenParticle, particleAmount):
+	play(Sound)
+	shake(shakeObject, shakeAmount)
+	#particle()
+
+
+func shake(shakeObject, shakeAmount):
+	shakeObject.rotation = shakeAmount * randf_range(-1, 1)
+	shakeObject.offset.x = 0.8 * shakeAmount * randf_range(-1, 1)
+	shakeObject.offset.y = 0.4 * shakeAmount * randf_range(-1, 1)
+
+
 func _ready():
 	# Create the pool of AudioStreamPlayer nodes.
 	for i in num_players:
@@ -104,12 +121,15 @@ func _ready():
 		player.finished.connect(_on_stream_finished.bind(player))
 		player.bus = bus
 
+
 func _on_stream_finished(stream):
 	# When finished playing a stream, make the player available again.
 	available.append(stream)
 
+
 func play(sound_path):
 	queue.append(sound_path)
+
 
 func _process(delta):
 	# Play a queued sound if any players are available.

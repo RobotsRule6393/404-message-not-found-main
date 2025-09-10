@@ -1,5 +1,33 @@
 extends CharacterBody2D
 
+func falling():
+	pass
+
+func landed():
+	pass
+
+func jumping():
+	pass
+
+func crouching():
+	pass
+
+func walkingLeft():
+	pass
+
+func walkingRight():
+	pass
+
+func boosting():
+	pass
+
+func idle():
+	pass
+
+func dino():
+	pass
+
+
 func _physics_process(delta):
 	if not Global.isDead:
 		if not is_on_floor() and not Global.inPhase or (Input.is_action_pressed("crouch") and Global.inPhase):
@@ -77,10 +105,8 @@ func _process(_delta):
 	
 	else:
 		Global.moving = false
-	
-	if is_on_floor() and Global.hitFloor and Global.falling:
-		Global.hitFloor = false
-		$playerParticlesBack.restart()
+		
+	print(velocity.y)
 
 
 func _on_player_water_area_body_entered(body: Node2D):
@@ -92,6 +118,5 @@ func _on_player_portal_area_body_entered(body: Node2D):
 	if body.name == "tileMap":
 		Global.changeScene(Global.currentScene + 1)
 
-
-func _on_player_particles_back_finished():
-	Global.hitFloor = true
+#func example():
+#	Global.effect("res://sprites/reliable-safe-327618.mp3", $playerCamera, 10, "res://sprites/Robot.png", 10)

@@ -875,8 +875,10 @@ animation = &"crouching"
 autoplay = "default"
 
 [node name="playerCamera" type="Camera2D" parent="."]
-process_callback = 0
 position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+drag_horizontal_offset = 1.0
+editor_draw_drag_margin = true
 
 [connection signal="body_entered" from="playerWaterArea" to="." method="_on_player_water_area_body_entered"]
 [connection signal="body_entered" from="playerPortalArea" to="." method="_on_player_portal_area_body_entered"]
