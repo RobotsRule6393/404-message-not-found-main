@@ -816,6 +816,44 @@ animations = [{
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_73wax")
 
+[node name="audioVisualiser" type="Node2D" parent="."]
+
+[node name="audioVisualiserBar1" type="ColorRect" parent="audioVisualiser"]
+offset_left = -574.0
+offset_top = -1.0
+offset_right = -564.0
+offset_bottom = 9.0
+
+[node name="audioVisualiserBar2" type="ColorRect" parent="audioVisualiser"]
+offset_left = -559.0
+offset_top = -1.0
+offset_right = -549.0
+offset_bottom = 9.0
+
+[node name="audioVisualiserBar3" type="ColorRect" parent="audioVisualiser"]
+offset_left = -544.0
+offset_top = -1.0
+offset_right = -534.0
+offset_bottom = 9.0
+
+[node name="audioVisualiserBar4" type="ColorRect" parent="audioVisualiser"]
+offset_left = -529.0
+offset_top = -1.0
+offset_right = -519.0
+offset_bottom = 9.0
+
+[node name="audioVisualiserBar5" type="ColorRect" parent="audioVisualiser"]
+offset_left = -514.0
+offset_top = -1.0
+offset_right = -504.0
+offset_bottom = 9.0
+
+[node name="audioVisualiserBar6" type="ColorRect" parent="audioVisualiser"]
+offset_left = -499.0
+offset_top = -1.0
+offset_right = -489.0
+offset_bottom = 9.0
+
 [node name="backgroundMusic" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_mcvdg")
 autoplay = true
@@ -862,7 +900,6 @@ particle_flag_align_y = true
 damping_min = 20.0
 damping_max = 20.0
 damping_curve = SubResource("Curve_woeub")
-scale_amount_min = 0.0
 color = Color(0.60933, 0.60933, 0.60933, 1)
 color_ramp = SubResource("Gradient_vpij3")
 hue_variation_min = 0.25
@@ -877,8 +914,6 @@ autoplay = "default"
 [node name="playerCamera" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
-drag_horizontal_offset = 1.0
-editor_draw_drag_margin = true
 
 [connection signal="body_entered" from="playerWaterArea" to="." method="_on_player_water_area_body_entered"]
 [connection signal="body_entered" from="playerPortalArea" to="." method="_on_player_portal_area_body_entered"]

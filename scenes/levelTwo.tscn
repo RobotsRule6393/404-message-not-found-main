@@ -6,6 +6,11 @@
 
 [node name="levelTwo" type="Node2D"]
 
+[node name="player" parent="." instance=ExtResource("2_hxa87")]
+
+[node name="usb" parent="." instance=ExtResource("1_aror5")]
+position = Vector2(1172, 48)
+
 [node name="tileMap" parent="." instance=ExtResource("3_fvf6y")]
 tile_map_data = PackedByteArray("AAD9/wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAEAAAAAAAAAAAAMAAEAAAAAAAAAAAD9/wAAAAAAAAAAAAD9////AAAAAAAAAAD9//7/AAAAAAAAAAADAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAANAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAARAP//AgAAAAAAAAA=")
 
@@ -24,8 +29,3 @@ offset_right = 1082.0
 offset_bottom = -178.0
 text = "Tip:
 You can't get rid of them so you'll have to jump over them. Use your double jump to make it easier on yourself."
-
-[node name="usb" parent="." instance=ExtResource("1_aror5")]
-position = Vector2(1172, 48)
-
-[node name="player" parent="." instance=ExtResource("2_hxa87")]

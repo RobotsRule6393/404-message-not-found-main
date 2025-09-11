@@ -2,7 +2,6 @@ extends Node
 
 var speed = 350.0
 var jumpVelocity = -550.0
-var actions = [null,null,null,null,null]
 var currentScene = 0
 var spawnPoint = Vector2(0, 0)
 var isDead = false
@@ -21,14 +20,6 @@ var bus = "master"
 
 var available = []  # The available players.
 var queue = []  # The queue of sounds to play.
-
-
-func addAction(input):
-	actions.append(input)
-	actions.remove_at(0)
-	#print("Added: ", Input)
-	#print(actions)
-
 
 func changeScene(scene):
 	if not inPhase:

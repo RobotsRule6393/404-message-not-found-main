@@ -1,32 +1,21 @@
 extends CharacterBody2D
 
-func falling():
-	pass
-
-func landed():
-	pass
-
-func jumping():
-	pass
-
-func crouching():
-	pass
-
-func walkingLeft():
-	pass
-
-func walkingRight():
-	pass
-
-func boosting():
-	pass
-
-func idle():
-	pass
-
-func dino():
-	pass
-
+#func statemachine(state):
+	#if state = "example":
+		#func example():
+			#animation
+			#sound
+			#particles
+			#shake
+			#physics
+	#falling, time, direction
+	#landed, velocity
+	#jumpimng, time
+	#crouching, direction
+	#walking, direction
+	#boosting, time, direction
+	#idle, time
+	#dino
 
 func _physics_process(delta):
 	if not Global.isDead:
@@ -106,7 +95,9 @@ func _process(_delta):
 	else:
 		Global.moving = false
 		
-	print(velocity.y)
+	if Input.is_action_just_pressed("alt"):
+		example()
+
 
 
 func _on_player_water_area_body_entered(body: Node2D):
@@ -120,3 +111,15 @@ func _on_player_portal_area_body_entered(body: Node2D):
 
 #func example():
 #	Global.effect("res://sprites/reliable-safe-327618.mp3", $playerCamera, 10, "res://sprites/Robot.png", 10)
+
+
+func example():
+	$playerParticlesBack.emitting = true
+	await get_tree().create_timer(1).timeout
+	$playerParticlesBack.emitting = false
+	$playerParticlesBack.scale_amount_min = 10
+	$playerParticlesBack.texture = ImageTexture.create_from_image(load("res://sprites/ComputerWalking.png"))
+	await get_tree().create_timer(1).timeout
+	$playerParticlesBack.emitting = true
+	await get_tree().create_timer(1).timeout
+	$playerParticlesBack.emitting = false
